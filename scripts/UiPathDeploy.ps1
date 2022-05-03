@@ -66,6 +66,7 @@ Param (
 
     #Cloud - Required
     [string] $account_name = "", #Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id.
+    [string] $account_app = "", #The Orchestrator CloudRPA account name. Must be used together with id, secret and scope(s) for external application.
 	[string] $UserKey = "", #Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
     [string] $applicationId = "", #Required. The external application id. Must be used together with account, secret and scope(s) for external application.
     [string] $applicationSecret = "", #Required. The external application secret. Must be used together with account, id and scope(s) for external application.
@@ -147,13 +148,17 @@ if($account_name -eq "" -or $UserKey -eq "")
 #Building uipath cli paramters
 $ParamList.Add("package")
 $ParamList.Add("deploy")
-$ParamList.Add($packages_path)
-$ParamList.Add($orchestrator_url)
+$ParamList.Add("""$packages_path""")
+$ParamList.Add("""$orchestrator_url""")
 $ParamList.Add($orchestrator_tenant)
 
 if($account_name -ne ""){
-    $ParamList.Add("-A")
+    $ParamList.Add("-a")
     $ParamList.Add($account_name)
+}
+if($account_name -ne ""){
+    $ParamList.Add("-A")
+    $ParamList.Add($account_app)
 }
 if($UserKey -ne ""){
     $ParamList.Add("-t")
@@ -212,6 +217,10 @@ if($secretIndex -ge 0){
 $secretIndex = $ParamMask.IndexOf("-t");
 if($secretIndex -ge 0){
     $ParamMask[$secretIndex + 1] = $userKey.Substring(0, 4) + ("*" * ($userKey.Length - 4))
+}
+$secretIndex = $ParamMask.IndexOf("-S");
+if($secretIndex -ge 0){
+    $ParamMask[$secretIndex + 1] = ("*" * ($applicationSecret.Length))
 }
 
 #log cli call with parameters
