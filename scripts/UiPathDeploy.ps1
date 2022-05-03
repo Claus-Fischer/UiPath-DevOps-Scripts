@@ -152,7 +152,7 @@ $ParamList.Add($orchestrator_url)
 $ParamList.Add($orchestrator_tenant)
 
 if($account_name -ne ""){
-    $ParamList.Add("-a")
+    $ParamList.Add("-A")
     $ParamList.Add($account_name)
 }
 if($UserKey -ne ""){
@@ -199,7 +199,7 @@ if($applicationSecret -ne ""){
 
 if($applicationScope -ne ""){
     $ParamList.Add("--applicationScope")
-    $ParamList.Add($applicationScope)
+    $ParamList.Add("""+$applicationScope+""")
 }
 
 #mask sensitive info before logging 
