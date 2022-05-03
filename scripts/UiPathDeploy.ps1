@@ -81,7 +81,7 @@ Param (
     [string] $environment_list = "", #The comma-separated list of environments to deploy the package to. If the environment does not belong to the default folder (organization unit) it must be prefixed with the folder name, e.g. AccountingTeam\TestEnvironment
     [string] $disableTelemetry = "" #Disable telemetry data.   
     
-    
+
 
 )
 function WriteLog
