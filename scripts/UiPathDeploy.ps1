@@ -20,6 +20,15 @@
 .PARAMETER orchestrator_pass
     Required. The Orchestrator password used for authentication. Must be used together with the username
 
+.PARAMETER applicationId
+    Required. The external application id. Must be used together with account, secret and scope(s) for external application.
+
+.PARAMETER applicationSecret
+    Required. The external application secret. Must be used together with account, id and scope(s) for external application.
+
+.PARAMETER applicationScope
+    Required. The space-separated list of application scopes. Must be used together with account, id and secret for external application.
+
 .PARAMETER UserKey
     Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
 
@@ -46,6 +55,7 @@ Examples:
     . '\UiPathDeploy.ps1' "C:\UiPath\Project\Package.1.0.6820.22047.nupkg" "https://uipath-orchestrator.myorg.com" default -orchestrator_user admin -orchestrator_pass 123456 -folder_organization_unit OurOrganization
     . '\UiPathDeploy.ps1' "C:\UiPath\Project\Package.1.0.6820.22047.nupkg" "https://uipath-orchestrator.myorg.com" default -UserKey a7da29a2c93a717110a82 -account_name myAccount
     . '\UiPathDeploy.ps1' "C:\UiPath\Project\TestsPackage.1.0.6820.22047.nupkg" "https://uipath-orchestrator.myorg.com" default -orchestrator_user admin -orchestrator_pass 123456 -environment_list SAPEnvironment,ExcelAutomationEnvironment -language en-US
+    . '\UiPathDeploy.ps1' "C:\UiPath\Project\TestsPackage.1.0.6820.22047.nupkg" "https://uipath-orchestrator.myorg.com" default -account_name myAccountForExternalApp -applicationId myExternalAppId -applicationSecret myExternalAppSecret --applicationScope myApplicationScopes
 #>
 Param (
 
@@ -54,14 +64,18 @@ Param (
 	[string] $orchestrator_url = "", #Required. The URL of the Orchestrator instance.
 	[string] $orchestrator_tenant = "", #Required. The tenant of the Orchestrator instance.
 
-    #cloud - Required
+    #Cloud - Required
     [string] $account_name = "", #Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id.
 	[string] $UserKey = "", #Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
+    [string] $applicationId = "", #Required. The external application id. Must be used together with account, secret and scope(s) for external application.
+    [string] $applicationSecret = "", #Required. The external application secret. Must be used together with account, id and scope(s) for external application.
+    [string] $applicationScope = "", #Required. The space-separated list of application scopes. Must be used together with account, id and secret for external application.
     
     #On prem - Required
     [string] $orchestrator_user = "", #Required. The Orchestrator username used for authentication. Must be used together with the password.
 	[string] $orchestrator_pass = "", #Required. The Orchestrator password used for authentication. Must be used together with the username
 	
+    #Misc
 	[string] $folder_organization_unit = "", #The Orchestrator folder (organization unit).
 	[string] $language = "", #The orchestrator language.  
     [string] $environment_list = "", #The comma-separated list of environments to deploy the package to. If the environment does not belong to the default folder (organization unit) it must be prefixed with the folder name, e.g. AccountingTeam\TestEnvironment
@@ -169,6 +183,21 @@ if($language -ne ""){
 if($disableTelemetry -ne ""){
     $ParamList.Add("-y")
     $ParamList.Add($disableTelemetry)
+}
+
+if($applicationId -ne ""){
+    $ParamList.Add("-I")
+    $ParamList.Add($applicationId)
+}
+
+if($applicationSecret -ne ""){
+    $ParamList.Add("-S")
+    $ParamList.Add($applicationSecret)
+}
+
+if($applicationScope -ne ""){
+    $ParamList.Add("--applicationScope")
+    $ParamList.Add($applicationScope)
 }
 
 #mask sensitive info before logging 
