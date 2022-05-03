@@ -136,9 +136,11 @@ if($account_name -eq "" -or $UserKey -eq "")
 {
     if($orchestrator_user -eq "" -or $orchestrator_pass -eq "")
     {
-        WriteLog "Fill the required paramters"
-
-        exit 1
+        if ($applicationId -eq "" -or $applicationSecret -eq "") 
+        {
+            WriteLog "Fill the required paramters"
+            exit 1  
+        }
     }
 }
 
