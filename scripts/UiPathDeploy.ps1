@@ -35,6 +35,9 @@
 .PARAMETER account_name
     Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id.
 
+.PARAMETER account_app
+    Required. The Orchestrator CloudRPA account name. Must be used together with id, secret and scope(s) for external application.
+    
 .PARAMETER folder_organization_unit
     The Orchestrator folder (organization unit).
 
