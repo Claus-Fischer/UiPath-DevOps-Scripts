@@ -37,7 +37,7 @@
 
 .PARAMETER account_app
     Required. The Orchestrator CloudRPA account name. Must be used together with id, secret and scope(s) for external application.
-    
+
 .PARAMETER folder_organization_unit
     The Orchestrator folder (organization unit).
 
@@ -159,7 +159,7 @@ if($account_name -ne ""){
     $ParamList.Add("-a")
     $ParamList.Add($account_name)
 }
-if($account_name -ne ""){
+if($account_app -ne ""){
     $ParamList.Add("-A")
     $ParamList.Add($account_app)
 }
