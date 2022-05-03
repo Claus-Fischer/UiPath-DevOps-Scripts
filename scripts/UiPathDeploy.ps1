@@ -33,10 +33,7 @@
     Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
 
 .PARAMETER account_name
-    Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id.
-
-.PARAMETER account_app
-    Required. The Orchestrator CloudRPA account name. Must be used together with id, secret and scope(s) for external application.
+    Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id or Must be used together with id, secret and scope(s) for external application.
 
 .PARAMETER folder_organization_unit
     The Orchestrator folder (organization unit).
@@ -69,7 +66,6 @@ Param (
 
     #Cloud - Required
     [string] $account_name = "", #Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id.
-    [string] $account_app = "", #The Orchestrator CloudRPA account name. Must be used together with id, secret and scope(s) for external application.
 	[string] $UserKey = "", #Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
     [string] $applicationId = "", #Required. The external application id. Must be used together with account, secret and scope(s) for external application.
     [string] $applicationSecret = "", #Required. The external application secret. Must be used together with account, id and scope(s) for external application.
@@ -156,12 +152,8 @@ $ParamList.Add("""$orchestrator_url""")
 $ParamList.Add($orchestrator_tenant)
 
 if($account_name -ne ""){
-    $ParamList.Add("-a")
-    $ParamList.Add($account_name)
-}
-if($account_app -ne ""){
     $ParamList.Add("-A")
-    $ParamList.Add($account_app)
+    $ParamList.Add($account_name)
 }
 if($UserKey -ne ""){
     $ParamList.Add("-t")
