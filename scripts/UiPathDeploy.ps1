@@ -199,7 +199,7 @@ if($applicationSecret -ne ""){
 
 if($applicationScope -ne ""){
     $ParamList.Add("--applicationScope")
-    $ParamList.Add("""+$applicationScope+""")
+    $ParamList.Add("""$applicationScope""")
 }
 
 #mask sensitive info before logging 
