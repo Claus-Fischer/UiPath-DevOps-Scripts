@@ -69,7 +69,7 @@ Param (
 	[string] $UserKey = "", #Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
     [string] $applicationId = "", #Required. The external application id. Must be used together with account, secret and scope(s) for external application.
     [string] $applicationSecret = "", #Required. The external application secret. Must be used together with account, id and scope(s) for external application.
-    [string] $applicationScope = "", #Required. The space-separated list of application scopes. Must be used together with account, id and secret for external application.
+    [string] $applicationScope = "OR.Administration OR.Assets OR.Execution OR.Jobs OR.Queues OR.TestDataQueues OR.TestSetExecutions OR.TestSets", #Required. The space-separated list of application scopes. Must be used together with account, id and secret for external application.
     
     #On prem - Required
     [string] $orchestrator_user = "", #Required. The Orchestrator username used for authentication. Must be used together with the password.
